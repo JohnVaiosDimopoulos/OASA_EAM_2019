@@ -1,0 +1,62 @@
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-12">
+      <p>Σύρετε τα δύο markers στο επιθυμιητό σημείο έναρξης και προορισμού και πατήστε το κουμπι για να εμφανιστεί η διαδρομή που θα πρέπει να ακολουθήσετε</p>
+    </div>
+
+    <div class="col-12" *ngIf="error">
+      <div class="alert alert-danger" >
+        <p>Δεν Βρεθηκαν αποτελέσματα</p>
+      </div>
+    </div>
+
+    <div class="col-12" *ngIf="duration!=null">
+      <div class="alert alert-success">
+        <p>Εκτιμόμενος Χρόνος: {{duration}}</p>
+      </div>
+    </div>
+
+
+
+    <div class="col-12 mb-3">
+      <button (click)="find_Route()" class="btn btn-block btn-primary" type="button">Εύρεση Διαδρομής</button>
+    </div>
+
+    <div class="col-12">
+
+    </div>
+
+    <div class="col-12 mb-3">
+      <agm-map
+        (mapReady)="onMapReady($event)"
+        [longitude]="lng"
+        [latitude]="lat"
+        [zoom]="13"
+        [disableDefaultUI]="false"
+        [zoomControl]="false"
+        class="map">
+
+
+        <agm-marker
+          *ngFor="let m of markers;let i=index"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [label]="m.label"
+          [markerDraggable]="m.draggable"
+          (dragEnd)="onDragEnd(m, $event,i)"
+        >
+        </agm-marker>
+      </agm-map>
+
+
+    </div>
+
+
+
+  </div>
+
+
+</div>
+

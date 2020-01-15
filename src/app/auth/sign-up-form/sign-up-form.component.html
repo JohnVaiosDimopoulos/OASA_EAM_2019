@@ -1,0 +1,176 @@
+<form [formGroup]="SignUpForm" (ngSubmit)="onSubmit()" *ngIf="!SignUpDone">
+
+  <div class="form-group">
+
+
+
+    <div class="row">
+      <div class="col-12">
+        <label for="Email">Email</label>
+        <input formControlName="email"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignUpForm.get('email').invalid && SignUpForm.get('email').touched,
+               'is-valid': SignUpForm.get('email').valid } "
+               type="text"
+               name="Email"
+               id="Email">
+        <small *ngIf="SignUpForm.get('email').touched && SignUpForm.get('email').invalid"
+               class="form-text invalid-feedback">Δώστε σωστό email</small>
+      </div>
+    </div>
+
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Password">Κωδικός(Τουλάχιστον 8 χαρακτήρες)</label>
+        <input formControlName="password"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignUpForm.get('password').invalid && SignUpForm.get('password').touched,
+               'is-valid': SignUpForm.get('password').valid } "
+               type="password"
+               name="Password"
+               id="Password">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Password_Verify">Επιβεβαίωση Κωδικού</label>
+        <input formControlName="password_verification"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': (SignUpForm.get('password_verification').invalid ||
+               SignUpForm.get('password_verification').value != SignUpForm.get('password').value)
+               && SignUpForm.get('password_verification').touched  ,
+               'is-valid': SignUpForm.get('password_verification').valid &&
+                SignUpForm.get('password_verification').value == SignUpForm.get('password').value} "
+               type="password"
+               name="Password_Verify"
+               id="Password_Verify">
+
+        <small *ngIf="SignUpForm.get('password_verification').touched && SignUpForm.get('password_verification').value != SignUpForm.get('password').value"
+               class="form-text invalid-feedback">Οι κωδικοί δεν είναι ίδιοι</small>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Age">Ηλικία</label>
+        <input formControlName="age"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignUpForm.get('age').invalid&& SignUpForm.get('age').touched  ,
+               'is-valid': SignUpForm.get('age').valid}"
+               type="number"
+               name="Age"
+               id="age">
+      </div>
+    </div>
+
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Name">Όνομα</label>
+        <input formControlName="name"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignUpForm.get('name').invalid&& SignUpForm.get('name').touched  ,
+               'is-valid': SignUpForm.get('name').valid}"
+               type="text"
+               name="Name"
+               id="Name">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="LastName">Επίθετο</label>
+        <input formControlName="lastName"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignUpForm.get('lastName').invalid&& SignUpForm.get('lastName').touched  ,
+               'is-valid': SignUpForm.get('lastName').valid}"
+               type="text"
+               name="LastName"
+               id="LastName">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Address">Οδός</label>
+        <input formControlName="Address"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignUpForm.get('Address').invalid&& SignUpForm.get('Address').touched  ,
+               'is-valid': SignUpForm.get('Address').valid}"
+               type="text"
+               name="Address"
+               id="Address">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Number">Αριθμός</label>
+        <input formControlName="number"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignUpForm.get('number').invalid&& SignUpForm.get('number').touched  ,
+               'is-valid': SignUpForm.get('number').valid}"
+               type="number"
+               name="Number"
+               id="Number">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="TK">ΤΚ</label>
+        <input formControlName="tk"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignUpForm.get('tk').invalid&& SignUpForm.get('tk').touched  ,
+               'is-valid': SignUpForm.get('tk').valid}"
+               type="number"
+               name="TK"
+               id="TK">
+      </div>
+    </div>
+
+
+
+
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-block btn-primary" type="submit" [disabled]="SignUpForm.invalid">Εγγραφή</button>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+
+
+
+<div *ngIf="successMessage!==null">
+  <div class="row">
+    <div class="col-12">
+      {{successMessage}}
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="errorMessage!==null">
+  <div class="row">
+    <div class="col-12">
+      {{errorMessage}}
+      <button class="btn btn-primary btn-block" (click)="SignUpDone=false;errorMessage=null">Δοκιμαστε ξανα</button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,124 @@
+<form [formGroup]="UpdateForm" (ngSubmit)="onSubmit()" *ngIf="!UdpateDone">
+
+  <div class="form-group">
+
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Age">Ηλικία</label>
+        <input formControlName="age"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': UpdateForm.get('age').invalid&& UpdateForm.get('age').touched  ,
+               'is-valid': UpdateForm.get('age').valid}"
+               type="number"
+               name="Age"
+               id="age">
+      </div>
+    </div>
+
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Name">Όνομα</label>
+        <input formControlName="name"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': UpdateForm.get('name').invalid&& UpdateForm.get('name').touched  ,
+               'is-valid': UpdateForm.get('name').valid}"
+               type="text"
+               name="Name"
+               id="Name">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="LastName">Επίθετο</label>
+        <input formControlName="lastName"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': UpdateForm.get('lastName').invalid&& UpdateForm.get('lastName').touched  ,
+               'is-valid': UpdateForm.get('lastName').valid}"
+               type="text"
+               name="LastName"
+               id="LastName">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Address">Οδός</label>
+        <input formControlName="Address"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': UpdateForm.get('Address').invalid&& UpdateForm.get('Address').touched  ,
+               'is-valid': UpdateForm.get('Address').valid}"
+               type="text"
+               name="Address"
+               id="Address">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Number">Αριθμός</label>
+        <input formControlName="number"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': UpdateForm.get('number').invalid&& UpdateForm.get('number').touched  ,
+               'is-valid': UpdateForm.get('number').valid}"
+               type="number"
+               name="Number"
+               id="Number">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="TK">ΤΚ</label>
+        <input formControlName="tk"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': UpdateForm.get('tk').invalid&& UpdateForm.get('tk').touched  ,
+               'is-valid': UpdateForm.get('tk').valid}"
+               type="number"
+               name="TK"
+               id="TK">
+      </div>
+    </div>
+
+
+
+
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-block btn-primary" type="submit" [disabled]="UpdateForm.invalid">Αποθήκευση</button>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+
+
+
+<div *ngIf="successMessage!==null">
+  <div class="row">
+    <div class="col-12">
+      {{successMessage}}
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="errorMessage!==null">
+  <div class="row">
+    <div class="col-12">
+      {{errorMessage}}
+      <button class="btn btn-primary btn-block" (click)="UdpateDone=false;errorMessage=null">Δοκιμαστε ξανα</button>
+    </div>
+  </div>
+</div>
+

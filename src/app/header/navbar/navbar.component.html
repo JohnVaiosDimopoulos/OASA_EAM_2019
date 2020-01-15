@@ -1,0 +1,125 @@
+
+<nav class="navbar navbar-expand-md navbar-dark  bg-primary mb-3 p-0">
+  <div class="container-fluid">
+
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand btn">
+      <img src="../../../assets/oasaLogo.png" width="80" height="80" alt="logo">
+    </a>
+
+    <div class="collapse navbar-collapse " id="navbarNav">
+
+
+
+      <ul class="navbar-nav mt-2" >
+
+        <li class="nav-item m-1 mr-2 mt-2">
+          <a class="nav-link btn text-light"
+             style = "font-size: 0.8rem"
+             routerLinkActive="active"
+             routerLink="/home">Αρχική</a>
+        </li>
+
+        <li class="nav-item m-1 mr-2 mt-2" >
+          <a class="nav-link btn  text-light"
+             style = "font-size: 0.8rem"
+             routerLinkActive="active"
+             routerLink="/routes">Εύρεση Διαδρομής</a>
+        </li>
+
+        <li class="nav-item m-1 mr-2 mt-2">
+          <a class="nav-link btn active  text-light"
+             style = "font-size: 0.8rem"
+             routerLink="/tickets"
+             routerLinkActive="active">Εισιτήρια/Κάρτες</a>
+        </li>
+
+        <li class="nav-item m-1 mr-2 mt-2">
+        <a class="nav-link btn  text-light"
+           style = "font-size: 0.8rem"
+           routerLink="/communication"
+           routerLinkActive="active">Επικοινωνία</a>
+      </li>
+
+        <li class="nav-item m-1 mr-2 mt-2" >
+          <a class="nav-link btn  text-light"
+             style = "font-size: 0.8rem"
+             routerLink="/faq"
+             routerLinkActive="active">Συχνές Ερωτήσεις</a>
+        </li>
+
+
+
+
+        <li class="nav-item" style="margin-left: 5rem" *ngIf="User===null">
+          <button type="button" class="btn" (click)="openModal(signup)">
+            <i class="fa fa-user-plus  text-light" style="margin-top: 11px;font-size:0.7rem"></i>
+            <p class="text-light" style="font-size: 0.5rem;margin-right: 0.5rem">Εγγραφή</p>
+          </button>
+
+          <button type="button" class="btn" (click)="openModal(login)">
+            <i class="fa fa-sign-in-alt  text-light" style="margin-top: 11px;font-size: 0.7rem"></i>
+            <p class="text-light" style="font-size: 0.5rem;margin-right: 0.5rem">Είσοδος</p>
+          </button>
+        </li>
+
+
+
+        <li class="nav-item ml-5" style="margin-left: 5rem" *ngIf="User!==null">
+          <button type="button" class="btn" (click)="auth.doLogout()">
+            <i class="fa fa-sign-out-alt  text-light" style="margin-top: 11px;font-size: 0.7rem"></i>
+            <p class="text-light" style="font-size: 0.5rem;margin-right: 0.5rem">Έξωδος</p>
+          </button>
+
+          <button type="button" class="btn" (click)="openModal(update)">
+            <i class="fa fa-user-cog  text-light" style="margin-top: 11px;font-size: 0.7rem"></i>
+            <p class="text-light" style="font-size: 0.5rem;margin-right: 0.5rem">Επεξεργασία Προφίλ</p>
+          </button>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<ng-template #login>
+  <div class="modal-header">
+  <h4 class="modal-title pull-left">Είσοδος Χρήστη</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+    <app-sign-in-form></app-sign-in-form>
+  </div>
+</ng-template>
+
+
+<ng-template #signup>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Εγγραφή Χρήστη</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-sign-up-form></app-sign-up-form>
+  </div>
+</ng-template>
+
+<ng-template #update>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Ενημέρωση στοιχείων λογαριασμού</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-update-user></app-update-user>
+  </div>
+</ng-template>

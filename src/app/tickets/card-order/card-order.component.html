@@ -1,0 +1,502 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="CardOrderFormStep1" (ngSubmit)="onSubmitStep1()" *ngIf="Step ===1">
+
+          <h4 class="text-primary text-center">Βήμα1:Προσωπικά στοιχεία</h4>
+
+          <div class="row">
+            <div class="col-12">
+              <label for="Name" class="col-form-label">Όνομα</label>
+              <input formControlName="name"
+                     class="shadow-sm "
+                     [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep1.get('name').invalid && CardOrderFormStep1.get('name').touched,
+               'is-valid': CardOrderFormStep1.get('name').valid } "
+                     type="text"
+                     name="Name"
+                     id="Name">
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <label for="lastName" class="col-form-label">Επίθετο</label>
+              <input formControlName="lastName"
+                     class="shadow-sm "
+                     [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep1.get('lastName').invalid && CardOrderFormStep1.get('lastName').touched,
+               'is-valid': CardOrderFormStep1.get('lastName').valid } "
+                     type="text"
+                     name="lastName"
+                     id="lastName">
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label for="validationType" class="col-form-label">Επιλέξτε έγγραφο πιστοποίησης</label>
+              <select name="validationType"
+                      class="shadow-sm form-control"
+                      id="validationType"
+                      formControlName="validationType">
+                <option value="Amka">ΑΜΚΑ</option>
+                <option value="passport">Διαβατήριο</option>
+              </select>
+            </div>
+
+
+            <div class="col-md-8">
+              <label for="ValidationCode" class="col-form-label">Κωδικός Εγγράφου</label>
+              <input formControlName="validationCode"
+                     class="shadow-sm"
+                     [ngClass]="{'form-control': true,
+                   'is-invalid': CardOrderFormStep1.get('validationCode').invalid
+                   && CardOrderFormStep1.get('validationCode').touched,
+                   'is-valid': CardOrderFormStep1.get('validationCode').valid } "
+                     type="text"
+                     name="ValidationCode"
+                     id="ValidationCode">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <label for="email" class="col-form-label">Email</label>
+              <input formControlName="email"
+                     class="shadow-sm "
+                     [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep1.get('email').invalid && CardOrderFormStep1.get('email').touched,
+               'is-valid': CardOrderFormStep1.get('email').valid } "
+                     type="email"
+                     name="email"
+                     id="email">
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label for="birthDate" class="col-form-label">Ημερομηνία Γέννησης</label>
+              <input formControlName="birthDate"
+                     class="shadow-sm "
+                     [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep1.get('birthDate').invalid && CardOrderFormStep1.get('birthDate').touched,
+               'is-valid': CardOrderFormStep1.get('birthDate').valid } "
+                     type="date"
+                     name="birthDate"
+                     id="birthDate">
+
+            </div>
+
+            <div class="col-md-8">
+              <label for="pin" class="col-form-label">8-ψήφιο pin</label>
+              <input formControlName="pin"
+                     class="shadow-sm "
+                     [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep1.get('pin').invalid && CardOrderFormStep1.get('pin').touched,
+               'is-valid': CardOrderFormStep1.get('pin').valid } "
+                     type="password"
+                     name="pin"
+                     id="pin">
+
+            </div>
+          </div>
+
+          <div class="row mt-2 mb-3">
+            <div class="col-12">
+              <button class="btn btn-block btn-success" type="submit"
+                      [disabled]="CardOrderFormStep1.invalid">Επόμενο</button>
+            </div>
+          </div>
+      </form>
+
+      <form [formGroup]="CardOrderFormStep2" (ngSubmit)="onSubmitStep2()" *ngIf="Step === 2">
+        <h4 class="text-primary text-center">Βήμα2:Επιλογή μειωμένου κομίστρου</h4>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="dropdown">
+              <button
+                class="btn btn-light dropdown-toggle btn-block border" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Επιλογή κοινωνικής ομάδας
+              </button>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="CardOrderFormStep2.get('type').setValue('Student')">
+                  Φοιτητής-Μαθητής</button>
+
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="this.CardOrderFormStep2.get('type').setValue('Disabled');">
+                  ΑΜΕΑ</button>
+
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="this.CardOrderFormStep2.get('type').setValue('Unemployed');">
+                  Άνεργος</button>
+
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="this.CardOrderFormStep2.get('type').setValue('Retired');">
+                  Συνταξιούχος</button>
+              </div>
+
+
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3" *ngIf="CardOrderFormStep2.get('type').value === 'Student'">
+          <div class="col-12">
+            <label for="Pass-pin">Κωδικός Μαθητικου-Φοιτικού Πάσου</label>
+            <input
+              formControlName="qualification"
+              class="shadow-sm form-control"
+              type="text"
+              id="Pass-pin"
+            >
+          </div>
+        </div>
+
+        <div class="row mt-3" *ngIf="CardOrderFormStep2.get('type').value === 'Disabled'">
+          <div class="col-12">
+            <label for="File">Παραθέστε τα απαραίτητα δικαιολογιτικα σε μορφή pdf</label>
+            <input
+              formControlName="qualification"
+              class="shadow-sm form-control-file"
+              type="file"
+              id="File"
+            >
+          </div>
+        </div>
+
+        <div class="row mt-3" *ngIf="CardOrderFormStep2.get('type').value === 'Unemployed'">
+          <div class="col-12">
+            <label for="Unemployment-card">Γράψτε τον κωδικό κάρτας ανεργίας</label>
+            <input
+              formControlName="qualification"
+              class="shadow-sm form-control"
+              type="text"
+              id="Unemployment-card"
+            >
+          </div>
+        </div>
+
+        <div class="row mt-3" *ngIf="CardOrderFormStep2.get('type').value === 'Retired'">
+          <div class="col-12">
+            <label for="amka">Γράψτε το ΑΜΚΑ σας</label>
+            <input
+              formControlName="qualification"
+              class="shadow-sm form-control"
+              type="text"
+              id="amka"
+            >
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <button class="btn btn-block btn-primary" type="button" (click)="onSkipStep2()">Συνέχεια χωρίς Μειωμένο κόμιστρο</button>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <button class="btn btn-block btn-success" type="submit"[disabled]="CardOrderFormStep2.invalid">Επόμενο</button>
+          </div>
+        </div>
+
+        <div class="row  my-3">
+          <div class="col-12">
+            <button class="btn-danger btn-block btn"
+                    type="submit"
+                    (click)="Step=1">
+              Πίσω</button>
+          </div>
+        </div>
+
+
+      </form>
+
+      <form [formGroup]="CardOrderFormStep3" (ngSubmit)="onSubmitStep3()" *ngIf="Step === 3">
+        <h4 class="text-primary text-center">Βήμα3:Τρόπος παραλαβής</h4>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="dropdown">
+              <button
+                class="btn btn-light dropdown-toggle btn-block border" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Επιλογή τρόπου παραλαβής
+              </button>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="CardOrderFormStep3.get('type').setValue('Delivery')">
+                  Αποστολή Ταχυδρομικά</button>
+
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="CardOrderFormStep3.get('type').setValue('Takeout')">
+                  Παραλαβή απο σημείο έκδωσης</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="CardOrderFormStep3.get('type').value === 'Delivery'">
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <label for="Address">Οδός</label>
+              <input
+                [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep3.get('address').invalid && CardOrderFormStep3.get('address').touched,
+               'is-valid': CardOrderFormStep3.get('address').valid } "
+                class="shadow-sm"
+                formControlName="address"
+                name="Address"
+                id="Address"
+                type="text">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <label for="Number">Αριθμός</label>
+              <input
+                [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep3.get('number').invalid && CardOrderFormStep3.get('number').touched,
+               'is-valid': CardOrderFormStep3.get('number').valid } "
+                class="shadow-sm"
+                formControlName="number"
+                id="Number"
+                name="Number"
+                type="number">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <label for="Tk">ΤΚ</label>
+              <input
+                [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep3.get('tk').invalid && CardOrderFormStep3.get('tk').touched,
+               'is-valid': CardOrderFormStep3.get('tk').valid } "
+                class="shadow-sm "
+                formControlName="tk"
+                id="Tk"
+                name="Tk"
+                type="number">
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="CardOrderFormStep3.get('type').value === 'Takeout'">
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <select name="Takeout" id="Takeout" class="form-control" formControlName="spot">
+                <option value="Syntagma">Σταθμός Μετρό Συντάγματος</option>
+                <option value="Doukisis">Σταθμός Μετρό Δουκίσις Πλακεντίας</option>
+                <option value="Attikh">Σταθμός Μετρό Αττική</option>
+                <option value="Omonia">Σταθμός Μετρό Ομόνια</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row  my-3">
+          <button class="btn-success btn-block btn"
+                  type="submit"
+                  [disabled]="CardOrderFormStep3.invalid">
+            Επόμενο</button>
+        </div>
+
+        <div class="row  my-3">
+          <button class="btn-danger btn-block btn"
+                  type="button"
+                  (click)="Step=2">
+            Πίσω</button>
+        </div>
+
+      </form>
+
+      <form [formGroup]="CardOrderFormStep4" (ngSubmit)="onSubmitStep4()" *ngIf="Step === 4">
+        <h4 class="text-primary text-center">Βήμα4: Φόρτιση κάρτας</h4>
+
+        <div class="row mb-3">
+          <div class="col-12">
+            <label for="TicketType">Επιλογή κομίστρου</label>
+            <select name="TicketType" id="TicketType" class="form-control" formControlName="ticketType">
+              <option value="30DaysFull">30 ημερών ολόκληρο (30 &euro;)</option>
+              <option value="30DaysDiscounted">30 ημερών μειωμένο (15 &euro;)</option>
+              <option value="90DaysFull">90 ημερών ολόκληρο (85 &euro;)</option>
+              <option value="90DaysDiscounted">90 ημερών μειωμένο (43 &euro;)</option>
+              <option value="180DaysDiscounted">180 ημερών ολόκληρο (170 &euro;)</option>
+              <option value="180DaysDiscounted">180 ημερών μειωμένο (85 &euro;)</option>
+              <option value="365DaysDiscounted">365 ημερών ολόκληρο (330 &euro;)</option>
+              <option value="365DaysDiscounted">365 ημερών μειωμένο (165 &euro;)</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12">
+            <label for="TicketType">Επιλογή τρόπου πληρωμής</label>
+            <div class="dropdown">
+              <button
+                class="btn btn-light dropdown-toggle btn-block border" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="CardOrderFormStep4.get('paymentType').setValue('Card')">
+                  Πιστοτική/Χρεωστική κάρτα</button>
+
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="CardOrderFormStep4.get('paymentType').setValue('Antikatavolh')">
+                  Πληρωμή κατα τη παραλαβή</button>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="CardOrderFormStep4.get('paymentType').value === 'Card'">
+          <div class="row mt-3">
+            <div class="col-12">
+              <label for="CandNum">Αριθμός Κάρτας</label>
+              <input
+                [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep4.get('cardNum').invalid && CardOrderFormStep4.get('cardNum').touched,
+               'is-valid': CardOrderFormStep4.get('cardNum').valid } "
+                formControlName="cardNum"
+                id="CandNum"
+                type="number">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <label for="Holder">Όνομα Κατώχου</label>
+              <input
+                formControlName="holderName"
+                [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep4.get('holderName').invalid && CardOrderFormStep4.get('holderName').touched,
+               'is-valid': CardOrderFormStep4.get('holderName').valid } "
+                id="Holder"
+                type="text">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <label for="SecurityCode">3-ψήφιος κωδικός ασφαλείας</label>
+              <input
+                [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep4.get('securityCode').invalid && CardOrderFormStep4.get('securityCode').touched,
+               'is-valid': CardOrderFormStep4.get('securityCode').valid } "
+                formControlName="securityCode"
+                id="SecurityCode"
+                type="number">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <label class="text-center">Ημερομηνία Λήξης</label>
+
+            </div>
+
+            <div class="col-md-6">
+              <input
+                placeholder="Μήνας"
+                formControlName="expMonth"
+                [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep4.get('expMonth').invalid && CardOrderFormStep4.get('expMonth').touched,
+               'is-valid': CardOrderFormStep4.get('expMonth').valid } "
+                type="number">
+            </div>
+
+            <div class="col-md-6">
+              <input
+                placeholder="Χρονία"
+                formControlName="expYear"
+                [ngClass]="{'form-control': true,
+               'is-invalid': CardOrderFormStep4.get('expYear').invalid && CardOrderFormStep4.get('expYear').touched,
+               'is-valid': CardOrderFormStep4.get('expYear').valid } "
+                type="number">
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <div *ngIf="CardOrderFormStep4.get('paymentType').value === 'Antikatavolh'">
+          <h4>Η πληρωμή μέσω αντικαταβολής σας επιβαρήνει με επιπλέον 2&euro; στο συνολίκο πόσο σε περίπτωση που έχετε επιλέξει να παραλάβετε ταχυδρομικά την κάρτα</h4>
+        </div>
+
+        <div class="row my-3">
+          <div class="col-12">
+            <button class="btn btn-block btn-primary" type="button" (click)="onSkipStep4()">Συνέχεια χωρίς Μειωμένο κόμιστρο</button>
+          </div>
+        </div>
+
+        <div class="row my-3">
+          <div class="col-12">
+            <button class="btn btn-block btn-success" type="submit"[disabled]="CardOrderFormStep4.invalid">Yποβολή</button>
+          </div>
+        </div>
+
+        <div class="row my-3">
+          <div class="col-12">
+            <button class="btn-danger btn-block btn"
+                    type="button"
+                    (click)="Step=3">
+              Πίσω</button>
+          </div>
+        </div>
+
+
+      </form>
+
+      <div *ngIf="Step === 5">
+        <div class="row">
+          <div class="col-12">
+            <h3>Η Αιτησή σας έχει υποβληθεί επιτυχώς θα ενημερωθέιται με email για την πορεία της</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <a class="btn btn-block btn-primary" routerLink="/home">Επιστροφή στην αρχική</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,246 @@
+<div class="container">
+
+  <form [formGroup]="TicketForm" (ngSubmit)="onSubmit()" *ngIf="!FormSubmited">
+
+      <div class="row my-3">
+        <div class="col-12">
+          <div class="dropdown">
+            <button
+              class="btn btn-light dropdown-toggle btn-block border" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Επιλογή Συναλαγής
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button
+                class="dropdown-item"
+                type="button"
+                (click)="TicketForm.get('type').setValue('refill')">
+                Επαναφόρτιση Κάρτας</button>
+
+              <button
+                class="dropdown-item"
+                type="button"
+                (click)="TicketForm.get('type').setValue('tickets')">
+                Αγορά Εισιτηρίων</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mb-3" *ngIf="TicketForm.get('type').value === 'refill'">
+        <div class="col-12">
+          <label for="pin" class="col-form-label">8-ψήφιο pin</label>
+          <input formControlName="cardPin"
+                 class="shadow-sm form-control"
+                 type="password"
+                 name="pin"
+                 id="pin">
+          </div>
+
+        <div class="col-12 mt-3">
+          <label>Επιλογή Κομίστρου</label>
+          <select name="TicketType" class="form-control" formControlName="cardPrice">
+            <option value="30">30 ημερών ολόκληρο (30 &euro;)</option>
+            <option value="15">30 ημερών μειωμένο (15 &euro;)</option>
+            <option value="85">90 ημερών ολόκληρο (85 &euro;)</option>
+            <option value="43">90 ημερών μειωμένο (43 &euro;)</option>
+            <option value="170">180 ημερών ολόκληρο (170 &euro;)</option>
+            <option value="85">180 ημερών μειωμένο (85 &euro;)</option>
+            <option value="330">365 ημερών ολόκληρο (330 &euro;)</option>
+            <option value="165">365 ημερών μειωμένο (165 &euro;)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3" formArrayName="tickets" *ngIf="TicketForm.get('type').value === 'tickets'">
+        <div class="form-group">
+          <label>Επιλογή Εισιτηρίων</label>
+          <div class="row my-3" *ngFor="let tickets of getTickets(); let i = index" [formGroupName]="i">
+              <div class="col-md-8">
+                <select formControlName="ticketPrice" class="form-control">
+                  <option value="1.40">
+                    Ενιαίο εισιτήριο για όλα τα μέσα 90 λεπτών ( εκτός γραμμών Αεροδρομίου & γραμμής Χ80) 1,40€
+                  </option>
+
+                  <option value="4,5">
+                    Ημερήσιο εισιτήριο για όλα τα μέσα (εκτός γραμμων Αεροδρομίου) 4,50€
+                  </option>
+
+                  <option value="9">
+                    Εισιτήριο πέντε ημερών για όλα τα μέσα (εκτός γραμμών Αεροδρομίου & γραμμής Χ80) 9,00€
+                  </option>
+
+                  <option value="22">
+                    Τουριστικό εισιτήριο 3 ημερών για όλα τα μέσα (περιλαμβάνει 1 διαδρομή από & προς το Αεροδρόμιο) 22,00€
+                  </option>
+
+                  <option value="6">
+                    Κανονικό εισιτήριο λεωφορείων EXPRESS (Για Αεροδρόμιο) 6,00€
+                  </option>
+
+                  <option value="10">
+                    Κανονικό εισιτήριο ΜΕΤΡΟ (Για Αεροδρόμιο) 10,00€
+                  </option>
+
+                  <option value="18">
+                    Εισιτήριο Αεροδρομίου μετ' επιστροφής ΜΕΤΡΟ	18,00€
+                  </option>
+
+                  <option value="6">
+                    Εισιτήριο Αεροδρομίου από & προς τους σταθμούς Παλλήνη - Κάντζα - Κορωπί ΜΕΤΡΟ 6,00€
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-2">
+                <input
+                  class="form-control"
+                  formControlName="amount"
+                  type="number">
+              </div>
+
+              <div class="col-md-2">
+                <button class="btn btn-danger" type="button" (click)="onDeleteTicket(i)">X</button>
+              </div>
+
+          </div>
+
+          <div class="row my-3">
+            <div class="col-12">
+              <button type="button" class="btn btn-block btn-primary" (click)="onAddTicket()">Νέο Εισιτήριο</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-3">
+        <h5 class="text-center text-primary">Στοιχεία Πληρωμής</h5>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <label for="CandNum">Αριθμός Κάρτας</label>
+            <input
+              [ngClass]="{'form-control': true,
+               'is-invalid': TicketForm.get('cardNum').invalid && TicketForm.get('cardNum').touched,
+               'is-valid': TicketForm.get('cardNum').valid } "
+              formControlName="cardNum"
+              id="CandNum"
+              type="number">
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <label for="Holder">Όνομα Κατώχου</label>
+            <input
+              formControlName="holderName"
+              [ngClass]="{'form-control': true,
+               'is-invalid': TicketForm.get('holderName').invalid && TicketForm.get('holderName').touched,
+               'is-valid': TicketForm.get('holderName').valid } "
+              id="Holder"
+              type="text">
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <label for="SecurityCode">3-ψήφιος κωδικός ασφαλείας</label>
+            <input
+              [ngClass]="{'form-control': true,
+               'is-invalid': TicketForm.get('securityCode').invalid && TicketForm.get('securityCode').touched,
+               'is-valid': TicketForm.get('securityCode').valid } "
+              formControlName="securityCode"
+              id="SecurityCode"
+              type="number">
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <label class="text-center">Ημερομηνία Λήξης</label>
+
+          </div>
+
+          <div class="col-md-6">
+            <input
+              placeholder="Μήνας"
+              formControlName="expMonth"
+              [ngClass]="{'form-control': true,
+               'is-invalid': TicketForm.get('expMonth').invalid && TicketForm.get('expMonth').touched,
+               'is-valid': TicketForm.get('expMonth').valid } "
+              type="number">
+          </div>
+
+          <div class="col-md-6">
+            <input
+              placeholder="Χρονία"
+              formControlName="expYear"
+              [ngClass]="{'form-control': true,
+               'is-invalid': TicketForm.get('expYear').invalid && TicketForm.get('expYear').touched,
+               'is-valid': TicketForm.get('expYear').valid } "
+              type="number">
+
+          </div>
+        </div>
+
+      </div>
+
+
+    <div class="row my-3">
+        <div class="col-12">
+          <button
+            class="btn btn-success btn-block"
+            type="submit"
+            [disabled]="TicketForm.invalid">Αγορά</button>
+        </div>
+      </div>
+
+  </form>
+
+  <div class="row" *ngIf="FormSubmited && !FormComfirmed">
+
+    <div class="col-12">
+      <h4> Το Συνολικό ποσό: {{TotalPrice}}</h4>
+    </div>
+
+    <div class="col-12">
+      <div class="row mt-3">
+        <div class="col-12">
+          <button class="btn btn-success btn-block" (click)="onComfirm()">Επιβεβαίωση</button>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <button class="btn btn-danger btn-block" (click)="onBack()">Πίσω</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row" *ngIf="FormComfirmed">
+    <div class="col-12">
+      <h4 class="text-center"> Η Συναλλαγή ολοκληρώθηκε με επιτυχία</h4>
+    </div>
+
+    <div *ngIf="TicketForm.get('type').value === 'tickets'">
+      <div class="col-12">
+        <h4 class="text-center">
+          Με τη χρήση του παρακάτω qr-code μπορείτε να εκτυπώσετε τα εισιτήρια σας σε οποιοδήποτε εκδωτήριο
+        </h4>
+
+      </div>
+
+      <div class="col-12">
+        <img src="../../../assets/Mspmr.png" alt="qr" class="h-50 w-50">
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

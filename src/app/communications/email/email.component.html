@@ -1,0 +1,70 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 mb-2">
+      <form (ngSubmit)="onSubmit(form)"  #form="ngForm" *ngIf="!FormedSubmited">
+        <h4>Επικοινωνία μέσω email</h4>
+
+        <div class="form-group">
+          <input type="text" id="Name" name="Name" placeholder="Όνομα" required ngModel class="form-control">
+        </div>
+
+        <div class="form-group">
+          <input
+            type="text"
+            id="LastName"
+            name="LastName"
+            placeholder="Επώνυμο"
+            required
+            ngModel
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <input
+            type="email"
+            id="Email"
+            name="Email"
+            placeholder="Email"
+            required
+            ngModel
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <input
+            type="text"
+            id="Subject"
+            name="Subject"
+            placeholder="Θέμα"
+            required
+            ngModel
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <textarea
+            rows="10"
+            cols="10"
+            type="time"
+            id="Message"
+            name="Message"
+            placeholder="Mήνυμα"
+            required
+            ngModel
+            class="form-control"></textarea>
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit" [disabled]="form.invalid">Αποστολή</button>
+
+      </form>
+
+      <div class="row" *ngIf="FormedSubmited">
+        <div class="col-12">
+          <h4>To email έχει αποσταλεί με επιτυχία</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,64 @@
+<form [formGroup]="SignInForm" (ngSubmit)="onSubmit()" *ngIf="!SignInDone">
+
+  <div class="form-group">
+
+    <div class="row">
+      <div class="col-12">
+        <label for="Email">Email</label>
+        <input formControlName="email"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignInForm.get('email').invalid && SignInForm.get('email').touched,
+               'is-valid': SignInForm.get('email').valid } "
+               type="text"
+               name="Email"
+               id="Email">
+      </div>
+    </div>
+
+
+    <div class="row my-3">
+      <div class="col-12">
+        <label for="Password">Κωδικός</label>
+        <input formControlName="password"
+               class="shadow-sm"
+               [ngClass]="{'form-control': true,
+               'is-invalid': SignInForm.get('password').invalid && SignInForm.get('password').touched,
+               'is-valid': SignInForm.get('password').valid } "
+               type="password"
+               name="Password"
+               id="Password">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-block btn-primary" type="submit">Είσοδος</button>
+      </div>
+    </div>
+
+
+
+  </div>
+
+</form>
+
+
+<div *ngIf="successMessage!==null">
+  <div class="row">
+    <div class="col-12">
+      {{successMessage}}
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="errorMessage!==null">
+  <div class="row">
+    <div class="col-12">
+      {{errorMessage}}
+      <button class="btn btn-primary btn-block" (click)="SignInDone=false;errorMessage=null">Δοκιμαστε ξανα</button>
+    </div>
+  </div>
+</div>

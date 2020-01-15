@@ -1,0 +1,202 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 mb-2">
+      <form (ngSubmit)="onSubmit(form)"  #form="ngForm" *ngIf="!FormSubmited">
+        <h4>Φόρμα Παραπόνων</h4>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="Date">Ημερωμηνία Συμβάντος</label>
+            <input type="date" id="Date" name="Date"  required ngModel class="form-control">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="Time">Ώρα Συμβάντος</label>
+            <input
+              type="time"
+              id="Time"
+              name="Time"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="medium">Μέσο</label>
+            <select name="medium" id="medium"  class="form-control">
+              <option value="metro">Μετρό</option>
+              <option value="metro">Λεωφορίο</option>
+              <option value="metro">Τρόλευ</option>
+              <option value="metro">Τράμ</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="Line">Γραμμή</label>
+            <input
+              type="text"
+              id="Line"
+              name="Line"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="destination">Κατεύθυνση</label>
+            <select name="destination" id="destination" class="form-control">
+              <option value="start">Απο Αφετηρία</option>
+              <option value="end">Απο Τέρμα</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Message">Περιγραφή Συμβάντος</label>
+          <textarea
+            rows="10"
+            cols="10"
+            id="Message"
+            name="Message"
+            required
+            ngModel
+            class="form-control"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="Name">Όνομα</label>
+            <input
+              type="text"
+              id="Name"
+              name="Name"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="LastName">Επώνυμο</label>
+            <input
+              type="text"
+              id="LastName"
+              name="LastName"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="Email">Email</label>
+            <input
+              type="text"
+              id="Email"
+              name="Email"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="Phone">Τηλέφωνο</label>
+            <input
+              type="number"
+              id="Phone"
+              name="Phone"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="Fax">Φαξ</label>
+            <input
+              type="number"
+              id="Fax"
+              name="Fax"
+              required
+              ngModel
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="City">Πόλη</label>
+            <input
+              type="text"
+              id="City"
+              name="City"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="Street">Οδός</label>
+            <input
+              type="text"
+              id="Street"
+              name="Street"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="Number">Αριθμός</label>
+            <input
+              type="number"
+              id="Number"
+              name="Number"
+              required
+              ngModel
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="Area">Δήμος/Περιοχή</label>
+            <input
+              type="number"
+              id="Area"
+              name="Area"
+              required
+              ngModel
+              class="form-control">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="Tk">ΤΚ</label>
+            <input
+              type="number"
+              id="Tk"
+              name="Tk"
+              required
+              ngModel
+              class="form-control">
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit" [disabled]="form.invalid">Αποστολή</button>
+
+      </form>
+
+      <div class="row" *ngIf="FormSubmited">
+        <div class="col-12">
+          <h4>Η φόρμα έχει αποσταλεί επιτυχώς</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="dropdown">
+        <button class="btn btn-block btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Επιλέξτε δήμο
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class="dropdown-item" *ngFor="let area of Areas" (click)="selectStations(area)">{{area}}</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3" *ngIf="SelectedStations.length != 0">
+    <div class="col-12">
+      <table class="table">
+
+        <thead class="theme-blue">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ΚΩΔΙΚΟΣ ΣΤΑΣΗΣ</th>
+          <th scope="col">ΟΝΟΜΑ ΣΤΑΣΗΣ</th>
+          <th scope="col">ΟΔΟΣ</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr *ngFor="let station of SelectedStations; let i = index">
+          <th scope="row">{{i}}</th>
+          <td>{{station.code}}</td>
+          <td>{{station.name}}</td>
+          <td>{{station.street}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

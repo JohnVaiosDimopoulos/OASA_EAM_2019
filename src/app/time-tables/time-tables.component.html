@@ -1,0 +1,150 @@
+<div class="container">
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="dropdown">
+        <button class="btn btn-block btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Επιλέξτε μέσο
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class="dropdown-item" (click)="Selected = 'HSAP';SelectedLine = null">ΗΣΑΠ(Γραμμη 1)</button>
+          <button class="dropdown-item" (click)="Selected = 'Line2';SelectedLine = null">Μετρό(Γραμμη 2)</button>
+          <button class="dropdown-item" (click)="Selected = 'Line3'; SelectedLine = null">Μετρό(Γραμμη 3)</button>
+          <button class="dropdown-item" (click)="Selected = 'Tram'; SelectedLine = null">Τράμ</button>
+          <button class="dropdown-item" (click)="Selected = 'bus';GetBuses();SelectedLine = null">Λεωφορίο</button>
+          <button class="dropdown-item" (click)="Selected = 'troley';GetTroleys();SelectedLine = null">Τρόλευ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="Selected === 'HSAP'">
+    <div class="col-12">
+      <img src="../../assets/HSAP.png" alt="HSAP" class="h-100 w-100">
+    </div>
+  </div>
+
+  <div class="row" *ngIf="Selected === 'Line2'">
+    <div class="col-12">
+      <img src="../../assets/METRO_LINE_2.png" alt="MetroLine2" class="h-100 w-100">
+    </div>
+  </div>
+
+  <div class="row" *ngIf="Selected === 'Line3'">
+    <div class="col-12">
+      <img src="../../assets/METRO_LINE_3.png" alt="MetroLine3" class="h-100 w-100">
+    </div>
+  </div>
+
+  <div class="row" *ngIf="Selected === 'Tram'">
+    <div class="col-12">
+      <img src="../../assets/TRAM.png" alt="Tram" class="h-100 w-100">
+    </div>
+  </div>
+
+  <div class="row" *ngIf="Selected === 'bus'">
+
+    <div class="col-12">
+
+      <div class="dropdown">
+        <button class="btn btn-block btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Επιλέξτε γραμμή
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class="dropdown-item"
+                  *ngFor="let bus of buses"
+                  (click)="this.SelectedLine = bus">{{bus.name}}</button>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="col-12 mt-3" *ngIf="SelectedLine !== null">
+      <h5 class="mb-2">{{SelectedLine.name}}</h5>
+
+      <table class="table table-striped">
+        <thead>
+        <th scope="col"></th>
+        <th scope="col">ΧΕΙΜΕΡΙΝΟ ΚΑΘΗΜΕΡΙΝΗ</th>
+        <th scope="col">ΧΕΙΜΕΡΙΝΟ ΣΑΒΒΑΤΟ</th>
+        <th scope="col">ΧΕΙΜΕΡΙΝΟ ΚΥΡΙΑΚΗ</th>
+        </thead>
+
+        <tbody>
+          <tr>
+            <th scope="row">ΠΡΩΤΟ ΔΡΟΜΟΛΟΓΙΟ</th>
+            <td>{{SelectedLine.times[0].start}}</td>
+            <td>{{SelectedLine.times[1].start}}</td>
+            <td>{{SelectedLine.times[2].start}}</td>
+          </tr>
+          <tr>
+            <th>ΤΕΛΕΥΤΑΙΟ ΔΡΟΜΟΛΟΓΙΟ</th>
+            <td>{{SelectedLine.times[0].end}}</td>
+            <td>{{SelectedLine.times[1].end}}</td>
+            <td>{{SelectedLine.times[2].end}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+    </div>
+
+  </div>
+
+  <div class="row" *ngIf="Selected === 'troley'">
+    <div class="col-12">
+
+      <div class="dropdown">
+        <button class="btn btn-block btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Επιλέξτε γραμμή
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class="dropdown-item"
+                  *ngFor="let troley of troleys"
+                  (click)="this.SelectedLine = troley">{{troley.name}}</button>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="col-12 mt-3" *ngIf="SelectedLine !== null">
+      <h5 class="mb-2">{{SelectedLine.name}}</h5>
+
+      <table class="table table-striped">
+        <thead>
+        <th scope="col"></th>
+        <th scope="col">ΧΕΙΜΕΡΙΝΟ ΚΑΘΗΜΕΡΙΝΗ</th>
+        <th scope="col">ΧΕΙΜΕΡΙΝΟ ΣΑΒΒΑΤΟ</th>
+        <th scope="col">ΧΕΙΜΕΡΙΝΟ ΚΥΡΙΑΚΗ</th>
+        </thead>
+
+        <tbody>
+        <tr>
+          <th scope="row">ΠΡΩΤΟ ΔΡΟΜΟΛΟΓΙΟ</th>
+          <td>{{SelectedLine.times[0].start}}</td>
+          <td>{{SelectedLine.times[1].start}}</td>
+          <td>{{SelectedLine.times[2].start}}</td>
+        </tr>
+        <tr>
+          <th>ΤΕΛΕΥΤΑΙΟ ΔΡΟΜΟΛΟΓΙΟ</th>
+          <td>{{SelectedLine.times[0].end}}</td>
+          <td>{{SelectedLine.times[1].end}}</td>
+          <td>{{SelectedLine.times[2].end}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+
+
+
+  </div>
+
+
+</div>
